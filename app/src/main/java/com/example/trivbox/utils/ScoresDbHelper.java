@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.trivbox.activities.ScoreboardActivity;
 import com.example.trivbox.models.Score;
 
 import java.util.ArrayList;
@@ -48,10 +49,10 @@ public class ScoresDbHelper extends SQLiteOpenHelper {
     public boolean insertScore(Score score){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("category", score.getCategory());
-        values.put("difficulty", score.getDifficulty());
-        values.put("type", score.getType());
-        values.put("score", score.getPoint());
+        values.put(COL_TWO, score.getCategory());
+        values.put(COL_THREE, score.getDifficulty());
+        values.put(COL_FOUR, score.getType());
+        values.put(COL_FIVE, score.getPoint());
         long l = db.insert(TABLE_NAME, null, values);
         db.close();
         if (l==-1){

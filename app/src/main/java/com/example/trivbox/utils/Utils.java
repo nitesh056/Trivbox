@@ -9,7 +9,7 @@ import com.example.trivbox.R;
 
 public class Utils {
     public static void showToast(Context context, String message){
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
     public static void spinnerAdapter(Context context, Spinner spinner, String[] stringArray){
