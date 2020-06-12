@@ -34,7 +34,7 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
         String category = leaderboardList.get(position).getScore().getCategory();
         String difficulty = leaderboardList.get(position).getScore().getDifficulty();
         String type = leaderboardList.get(position).getScore().getType();
-        String point = leaderboardList.get(position).getScore().getPoint();
+        int point = leaderboardList.get(position).getScore().getPoint();
         holder.setData(number, name, category, difficulty, type, point);
     }
 
@@ -56,13 +56,13 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
             scoreText = itemView.findViewById(R.id.scorelist_id);
         }
 
-        public void setData(int number, String name, String category, String difficulty, String type, String score) {
+        public void setData(int number, String name, String category, String difficulty, String type, int score) {
             numberText.setText(Integer.toString(number));
             nameText.setText(name);
             catText.setText(category);
             diffText.setText(difficulty);
             typeText.setText(type);
-            scoreText.setText(score);
+            scoreText.setText(""+score);
         }
     }
 }

@@ -4,11 +4,12 @@ import java.io.Serializable;
 
 public class Score implements Serializable {
     private int _id;
-    private String category, difficulty, type, point;
+    private String category, difficulty, type;
+    private int point;
 
     public Score() {}
 
-    public Score(String category, String difficulty, String type, String point) {
+    public Score(String category, String difficulty, String type, int point) {
         this.category = category;
         this.difficulty = difficulty;
         this.type = type;
@@ -33,11 +34,11 @@ public class Score implements Serializable {
         return type;
     }
 
-    public String getPoint() {
+    public int getPoint() {
         return point;
     }
 
-    public void setPoint(String point) {
+    public void setPoint(int point) {
         this.point = point;
     }
 }

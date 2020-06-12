@@ -34,7 +34,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.MyViewHolder
         String category = scoreList.get(position).getCategory();
         String difficulty = scoreList.get(position).getDifficulty();
         String type = scoreList.get(position).getType();
-        String score = scoreList.get(position).getPoint();
+        int score = scoreList.get(position).getPoint();
         holder.setData(number, category, difficulty, type, score);
     }
 
@@ -55,12 +55,12 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.MyViewHolder
             scoreText = itemView.findViewById(R.id.scorelist_id);
         }
 
-        public void setData(int number, String category, String difficulty, String type, String score) {
+        public void setData(int number, String category, String difficulty, String type, int score) {
             numberText.setText(Integer.toString(number));
             catText.setText(category);
             diffText.setText(difficulty);
             typeText.setText(type);
-            scoreText.setText(score);
+            scoreText.setText(""+score);
         }
     }
 }

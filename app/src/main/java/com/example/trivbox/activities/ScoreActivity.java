@@ -39,7 +39,7 @@ public class ScoreActivity extends AppCompatActivity implements NameDialog.SendN
 
         scoreId = findViewById(R.id.score_id);
         scoreId.setText("" + points);
-        scoreObj.setPoint("" + points);
+        scoreObj.setPoint(points);
 
         dbObject = new ScoresDbHelper(this);
 

@@ -27,6 +27,7 @@ public class Leaderboard implements Comparable<Leaderboard> {
 
     @Override
     public int compareTo(Leaderboard o) {
-        return this.getScore().getPoint().compareTo(o.getScore().getPoint());
+        return this.getScore().getPoint() - o.getScore().getPoint();
     }
+
 }

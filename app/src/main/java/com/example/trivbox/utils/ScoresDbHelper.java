@@ -22,7 +22,7 @@ public class ScoresDbHelper extends SQLiteOpenHelper {
     public static final String COL_TWO = "category";
     public static final String COL_THREE = "difficulty";
     public static final String COL_FOUR = "type";
-    public static final String COL_FIVE = "score";
+    public static final String COL_FIVE = "point";
 
     public ScoresDbHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -35,7 +35,7 @@ public class ScoresDbHelper extends SQLiteOpenHelper {
                 COL_TWO + " TEXT, " +
                 COL_THREE + " TEXT, " +
                 COL_FOUR + " TEXT, " +
-                COL_FIVE + " TEXT" +
+                COL_FIVE + " INTEGER" +
                 ");"
         );
     }
@@ -75,7 +75,7 @@ public class ScoresDbHelper extends SQLiteOpenHelper {
                         c.getString(c.getColumnIndex(COL_TWO)),
                         c.getString(c.getColumnIndex(COL_THREE)),
                         c.getString(c.getColumnIndex(COL_FOUR)),
-                        c.getString(c.getColumnIndex(COL_FIVE))));
+                        c.getInt(c.getColumnIndex(COL_FIVE))));
             } while (c.moveToNext());
         }
         c.close();
@@ -89,12 +89,12 @@ public class ScoresDbHelper extends SQLiteOpenHelper {
         if (allScores.size()==0) {
             max = 0;
         }else if (allScores.size()==1) {
-            max = Integer.parseInt(allScores.get(0).getPoint());
+            max = allScores.get(0).getPoint();
         }else{
-            max = Integer.parseInt(allScores.get(0).getPoint());
+            max = allScores.get(0).getPoint();
             int num;
             for (int i=1; i<allScores.size();i++){
-                num = Integer.parseInt(allScores.get(i).getPoint());
+                num = allScores.get(i).getPoint();
                 if (max < num){
                     max = num;
                 }
