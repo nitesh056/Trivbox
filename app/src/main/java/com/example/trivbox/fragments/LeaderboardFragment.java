@@ -32,7 +32,7 @@ import okhttp3.internal.Util;
 
 public class LeaderboardFragment extends Fragment {
     private DatabaseReference dbRef;
-    private List<Leaderboard> leaderboardList = new ArrayList<Leaderboard>();;
+    private List<Leaderboard> leaderboardList = new ArrayList<Leaderboard>();
     private TextView scoreboardTitle;
     private RecyclerView scoreboard_rv;
 
@@ -59,6 +59,7 @@ public class LeaderboardFragment extends Fragment {
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshots) {
+                Utils.showToast(getActivity(), "Fetching data!!", true);
                 leaderboardList.clear();
                 for (DataSnapshot dataSnapshot : dataSnapshots.getChildren()) {
                     leaderboardList.add(dataSnapshot.getValue(Leaderboard.class));

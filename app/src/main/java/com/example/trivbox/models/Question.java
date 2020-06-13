@@ -3,6 +3,7 @@ package com.example.trivbox.models;
 import android.text.Html;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -78,6 +79,11 @@ public class Question implements Serializable {
     }
 
     public List<String> getIncorrectAnswers() {
+        List<String> temp = new ArrayList<String>();
+        for (String incorrectAnswer:incorrectAnswers) {
+            temp.add(Html.fromHtml(incorrectAnswer).toString());
+        }
+        incorrectAnswers = temp;
         return incorrectAnswers;
     }
 
