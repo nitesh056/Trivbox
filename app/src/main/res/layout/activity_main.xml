@@ -23,6 +23,15 @@
         android:text="Start"
         android:paddingVertical="30dp"
         android:textAlignment="center"
+        android:textSize="50sp"/>
+
+    <Button
+        android:onClick="changeActivityToScoreboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Scoreboard"
+        android:paddingVertical="30dp"
+        android:textAlignment="center"
         android:textSize="50sp"
         android:layout_marginVertical="10sp"/>
 

@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.example.trivbox.activities.ScoreboardActivity;
 import com.example.trivbox.models.Score;
 
 import java.util.ArrayList;
@@ -83,23 +82,18 @@ public class ScoresDbHelper extends SQLiteOpenHelper {
         return scoreList;
     }
 
-    public boolean checkHighScore(int points){
-        List<Score> allScores = this.getAllScores();
-        int max;
-        if (allScores.size()==0) {
-            max = 0;
-        }else if (allScores.size()==1) {
-            max = allScores.get(0).getPoint();
-        }else{
-            max = allScores.get(0).getPoint();
-            int num;
-            for (int i=1; i<allScores.size();i++){
-                num = allScores.get(i).getPoint();
-                if (max < num){
-                    max = num;
-                }
-            }
+    public boolean isHighscore(int points){
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT MAX("+ COL_FIVE +") FROM "+ TABLE_NAME;
+        Cursor c = db.rawQuery(query, null);
+
+        int max = 0;
+        if (c.moveToFirst()){
+            max = c.getInt(0);
         }
-        return points > max;
+
+        c.close();
+        db.close();
+        return points >= max;
     }
 }

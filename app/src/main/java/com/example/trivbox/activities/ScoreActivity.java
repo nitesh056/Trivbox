@@ -6,13 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.trivbox.R;
 import com.example.trivbox.models.Leaderboard;
 import com.example.trivbox.models.Score;
 import com.example.trivbox.utils.NameDialog;
 import com.example.trivbox.utils.ScoresDbHelper;
+import com.example.trivbox.utils.Utils;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -21,7 +21,6 @@ public class ScoreActivity extends AppCompatActivity implements NameDialog.SendN
     private TextView scoreId;
     private Score scoreObj;
     private ScoresDbHelper dbObject;
-    private DatabaseReference dbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +35,16 @@ public class ScoreActivity extends AppCompatActivity implements NameDialog.SendN
         scoreId.setText("" + points);
         scoreObj.setPoint(points);
 
-        dbObject = new ScoresDbHelper(this);
+        if (points > 0){
+            dbObject = new ScoresDbHelper(this);
 
-        if(points > 0 && dbObject.checkHighScore(1000)){
-            NameDialog nameDialogObj = new NameDialog(this);
-            nameDialogObj.showDialog();
+
+            if (dbObject.isHighscore(points)){
+                NameDialog nameDialogObj = new NameDialog(this);
+                nameDialogObj.showDialog();
+            }
+            dbObject.insertScore(scoreObj);
         }
-        dbObject.insertScore(scoreObj);
     }
 
     public void try_again(View view) {
@@ -55,9 +57,9 @@ public class ScoreActivity extends AppCompatActivity implements NameDialog.SendN
 
     @Override
     public void sendName(String name){
-        dbRef = FirebaseDatabase.getInstance().getReference("Leaderboard");
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Leaderboard");
         String id = dbRef.push().getKey();
         dbRef.child(id).setValue(new Leaderboard(id, scoreObj, name));
-        Toast.makeText(this, "Name Saved", Toast.LENGTH_SHORT).show();
+        Utils.showToast(this, "Name Saved", false);
     }
 }

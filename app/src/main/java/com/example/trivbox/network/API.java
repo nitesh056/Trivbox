@@ -51,7 +51,7 @@ public class API {
 
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable t) {
-                Utils.showToast(context, "Error: No internet connection");
+                Utils.showToast(context, "Error: No internet connection", false);
             }
         });
         return null;
@@ -62,10 +62,10 @@ public class API {
             case 0:
                 return apiResponse.getQuestions();
             case 1:
-                Utils.showToast(context, "Error: No questions found for that combination");
+                Utils.showToast(context, "Error: No questions found for that combination", false);
                 break;
             default:
-                Utils.showToast(context, "Error: Try another category");
+                Utils.showToast(context, "Error: Try another category", false);
         }
         return null;
     }

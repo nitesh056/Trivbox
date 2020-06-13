@@ -42,7 +42,7 @@ public class NameDialog {
                 String name = editName.getText().toString();
 
                 if (name.isEmpty()){
-                    Utils.showToast(context,"Please enter your name or cancel the dialog box");
+                    Utils.showToast(context,"Please enter your name or cancel the dialog box", false);
                 } else {
                     sendNameInterface = (SendNameInterface) context;
                     sendNameInterface.sendName(name);

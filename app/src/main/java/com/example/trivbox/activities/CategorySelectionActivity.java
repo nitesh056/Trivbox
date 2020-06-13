@@ -12,6 +12,7 @@ import com.example.trivbox.models.ApiResponse;
 import com.example.trivbox.models.Question;
 import com.example.trivbox.models.Score;
 import com.example.trivbox.network.API;
+import com.example.trivbox.utils.Utils;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -50,6 +51,8 @@ public class CategorySelectionActivity extends AppCompatActivity implements API.
         selections.put("type", getType(typeText));
 
         scoreObj = new Score(catIdText, difficultyText, typeText);
+
+        Utils.showToast(this, "Fetching data!!!", true);
 
         API api = new API(CategorySelectionActivity.this);
         responseQuestions = api.getQuestions(selections);

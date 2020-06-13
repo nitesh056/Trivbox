@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.trivbox.adapters.LeaderboardAdapter;
 import com.example.trivbox.R;
 import com.example.trivbox.models.Leaderboard;
+import com.example.trivbox.utils.Utils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import okhttp3.internal.Util;
 
 public class LeaderboardFragment extends Fragment {
     private DatabaseReference dbRef;
@@ -64,13 +67,13 @@ public class LeaderboardFragment extends Fragment {
                     Collections.sort(leaderboardList, Collections.reverseOrder());
                     scoreboard_rv.setAdapter(new LeaderboardAdapter(leaderboardList));
                 } else {
-                    Toast.makeText(getActivity(), "List not found", Toast.LENGTH_SHORT).show();
+                    Utils.showToast(getActivity(), "List not found", true);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getActivity(), "Firebase db not accessible", Toast.LENGTH_SHORT).show();
+                Utils.showToast(getActivity(), "Firebase db not accessible", true);
             }
         });
     }

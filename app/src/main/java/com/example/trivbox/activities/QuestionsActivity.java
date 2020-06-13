@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.trivbox.R;
 import com.example.trivbox.models.Question;
@@ -24,10 +23,9 @@ public class QuestionsActivity extends AppCompatActivity {
     private TextView questionNoText, questionText;
     private Button option1, option2, option3, option4;
     private Question currentQuestion;
-    int questionNo;
-    List<Question> apiResponse;
-    Handler handler;
-    int score;
+    private int questionNo, score;
+    private List<Question> apiResponse;
+    private Handler handler;
     private Score scoreObj;
 
     @Override
@@ -35,15 +33,20 @@ public class QuestionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions);
 
-        getAllId();
+        questionNoText = findViewById(R.id.question_no);
+        questionText = findViewById(R.id.question_id);
+        option1 = findViewById(R.id.option_1);
+        option2 = findViewById(R.id.option_2);
+        option3 = findViewById(R.id.option_3);
+        option4 = findViewById(R.id.option_4);
 
         handler = new Handler();
 
         Intent i = getIntent();
         apiResponse = (List<Question>) i.getExtras().getSerializable("response");
         scoreObj = (Score) i.getExtras().getSerializable("scoreObj");
-        Toast.makeText(this, scoreObj.getCategory()+scoreObj.getDifficulty()+scoreObj.getType(), Toast.LENGTH_SHORT).show();
-        questionNo = 1;
+
+        questionNo = score = 1;
         score = 0;
         currentQuestion = apiResponse.get(questionNo-1);
 
@@ -61,18 +64,22 @@ public class QuestionsActivity extends AppCompatActivity {
             Button clickedButton = ((Button) v);
             String clickedOption = (String) clickedButton.getText();
             if (clickedOption.equals(currentQuestion.getCorrectAnswer())) {
-                if (currentQuestion.getDifficulty().equals("easy")){
-                    score += 10;
-                } else if (currentQuestion.getDifficulty().equals("medium")){
-                    score += 30;
-                } else if (currentQuestion.getDifficulty().equals("hard")){
-                    score += 60;
+                switch (currentQuestion.getDifficulty()){
+                    case "easy":
+                        score += 10;
+                        break;
+                    case "medium":
+                        score += 30;
+                        break;
+                    case "hard":
+                        score +=60;
+                        break;
+                    default:
+                        score += 0;
                 }
                 ((Button) v).setBackgroundColor(Color.parseColor("#00FF00"));
-//                Toast.makeText(QuestionsActivity.this, "Correct Answer", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 ((Button) v).setBackgroundColor(Color.parseColor("#FF0000"));
-//                Toast.makeText(QuestionsActivity.this, "Incorrect Answer", Toast.LENGTH_SHORT).show();
             }
 
             questionNo = questionNo + 1;
@@ -97,16 +104,7 @@ public class QuestionsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void getAllId(){
-        questionNoText = findViewById(R.id.question_no);
-        questionText = findViewById(R.id.question_id);
-        option1 = findViewById(R.id.option_1);
-        option2 = findViewById(R.id.option_2);
-        option3 = findViewById(R.id.option_3);
-        option4 = findViewById(R.id.option_4);
-    }
-
-    public void setData() {
+    private void setData() {
         option1.setBackgroundColor(Color.parseColor("#FFFFFF"));
         option2.setBackgroundColor(Color.parseColor("#FFFFFF"));
         option3.setBackgroundColor(Color.parseColor("#FFFFFF"));
