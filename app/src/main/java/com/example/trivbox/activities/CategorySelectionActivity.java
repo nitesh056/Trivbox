@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Spinner;
 
@@ -20,7 +19,7 @@ import java.util.List;
 
 import static com.example.trivbox.utils.Utils.spinnerAdapter;
 
-public class CategorySelectionActivity extends AppCompatActivity {
+public class CategorySelectionActivity extends AppCompatActivity implements API.ApiResponseInterface {
 
     private Spinner catSpinner,diffSpinner,typeSpinner;
     private HashMap<String, String> selections = new HashMap<String, String>();
@@ -53,21 +52,19 @@ public class CategorySelectionActivity extends AppCompatActivity {
         scoreObj = new Score(catIdText, difficultyText, typeText);
 
         API api = new API(CategorySelectionActivity.this);
-        responseQuestions = api.getQuestions(selections, scoreObj);
-//        if (responseQuestions != null){
-//            Log.d("Hello", "hello");
-//            changeActivity();
-//        }
+        responseQuestions = api.getQuestions(selections);
     }
 
-//    private void changeActivity(){
-//        Intent intent = new Intent(CategorySelectionActivity.this, QuestionsActivity.class);
-//        intent.putExtra("response", (Serializable) responseQuestions);
-//        intent.putExtra("scoreObj", (Serializable) scoreObj);
-//        startActivity(intent);
-//    }
+    @Override
+    public void changeActivity(ApiResponse apiResponse){
+        List<Question> res = apiResponse.getQuestions();
+        Intent intent = new Intent(this, QuestionsActivity.class);
+        intent.putExtra("response", (Serializable) res);
+        intent.putExtra("scoreObj", (Serializable) scoreObj);
+        startActivity(intent);
+    }
 
-    public String getCategoryId(String selectedCategory){
+    private String getCategoryId(String selectedCategory){
         String[] categories = getResources().getStringArray(R.array.categories);
         if(!selectedCategory.equals("Any Category")){
             for (int i=1;i<categories.length;i++) {
@@ -79,7 +76,7 @@ public class CategorySelectionActivity extends AppCompatActivity {
         return "";
     }
 
-    public String getDifficulty(String selectedDifficulty){
+    private String getDifficulty(String selectedDifficulty){
         if (!selectedDifficulty.equals("Any Difficulty")){
             return selectedDifficulty.substring(0, 1).toLowerCase() + selectedDifficulty.substring(1);
         }

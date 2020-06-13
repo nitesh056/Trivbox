@@ -13,7 +13,6 @@ import com.example.trivbox.fragments.ScoreFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ScoreboardActivity extends AppCompatActivity {
-
     BottomNavigationView bottomNav;
 
     @Override
@@ -22,12 +21,12 @@ public class ScoreboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scoreboard);
 
         bottomNav = findViewById(R.id.nav_bottom_id);
-        bottomNav.setOnNavigationItemSelectedListener(navListner);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_id, new ScoreFragment()).commit();
     }
 
-    BottomNavigationView.OnNavigationItemSelectedListener navListner =
+    BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

@@ -18,7 +18,6 @@ import com.example.trivbox.models.Score;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 public class QuestionsActivity extends AppCompatActivity {

@@ -56,6 +56,7 @@ public class LeaderboardFragment extends Fragment {
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshots) {
+                leaderboardList.clear();
                 for (DataSnapshot dataSnapshot : dataSnapshots.getChildren()) {
                     leaderboardList.add(dataSnapshot.getValue(Leaderboard.class));
                 }
