@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.trivbox.adapters.LeaderboardAdapter;
 import com.example.trivbox.R;
@@ -27,8 +26,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import okhttp3.internal.Util;
 
 public class LeaderboardFragment extends Fragment {
     private DatabaseReference dbRef;
@@ -47,6 +44,8 @@ public class LeaderboardFragment extends Fragment {
         scoreboard_rv = rootView.findViewById(R.id.scoreboard_rv);
         scoreboard_rv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        Utils.showToast(getActivity(), "Fetching data!!", true);
+
         dbRef = FirebaseDatabase.getInstance().getReference("Leaderboard");
 
         return rootView;
@@ -59,7 +58,6 @@ public class LeaderboardFragment extends Fragment {
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshots) {
-                Utils.showToast(getActivity(), "Fetching data!!", true);
                 leaderboardList.clear();
                 for (DataSnapshot dataSnapshot : dataSnapshots.getChildren()) {
                     leaderboardList.add(dataSnapshot.getValue(Leaderboard.class));

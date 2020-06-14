@@ -65,7 +65,7 @@ public class API {
                 Utils.showToast(context, "Error: No questions found for that combination", false);
                 break;
             default:
-                Utils.showToast(context, "Error: Try another category", false);
+                Utils.showToast(context, "Error: Try other options", false);
         }
         return null;
     }

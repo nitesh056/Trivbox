@@ -34,6 +34,7 @@ public class NameDialog {
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
+                Utils.showToast(context,"Canceled", true);
             }
         });
         btn_ok.setOnClickListener(new View.OnClickListener() {
